@@ -1,0 +1,25 @@
+// slick gap
+.slick-slide > div {
+    margin: 0 10px;
+}
+.slick-list {
+    margin:0 -10px ;
+}
+
+// // slick arrows
+.slick-prev {
+    left: -2.1rem;
+}
+.slick-prev:before {
+    content: "<";
+    color: #572EE5;
+}
+.slick-next {
+    right: -2.1rem;
+}
+.slick-next:before {
+    content: ">";
+    color: #572EE5;
+}
+// slick arrows
+

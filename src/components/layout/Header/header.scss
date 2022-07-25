@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2.1rem;
+    &__ctn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    &__title {
+        text-align: center;
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #572EE5;
+        margin-bottom: 3.1rem;
+    }
+    &__uppercase {
+        text-transform: uppercase;
+        color: #50E3C2;
+    }
+    &__img-ctn {
+        max-width: 40rem;
+    }
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}

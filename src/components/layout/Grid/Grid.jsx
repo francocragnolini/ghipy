@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import GridItem from "./GridItem";
 import Button from "../../ui/Button/Button";
 import Card from "../../Card/Card";
 import "./grid.scss";
+import Fallback from "../../Fallback/Fallback";
 
+// actualizar el estado de next a 0 cuando cierro una busqueda.
 const Grid = (props) => {
-  const { data } = props;
-  console.log(data);
+  const { gifos } = props;
   // setting the initial quantity of images to be loaded.
   const imageNumberInitial = 12;
   const imagePerRow = 12;
   const [next, setNext] = useState(imageNumberInitial);
 
-  // mapping the dummy data array
-  const images = data?.slice(0, next).map((item) => (
+  const renderedGifos = gifos?.slice(0, next).map((item) => (
     <li key={item.id}>
       <Card
         user={item.username}
@@ -33,8 +32,8 @@ const Grid = (props) => {
   return (
     <>
       <div className="grid">
-        <ul className="grid__content">{images}</ul>
-        {<Button onClick={loadMoreContentHandler} />}
+        <ul className="grid__content">{renderedGifos}</ul>
+        <Button onClick={loadMoreContentHandler} />
       </div>
     </>
   );

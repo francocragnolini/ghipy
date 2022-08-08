@@ -4,37 +4,61 @@ import Carrousel from "../../components/Slider/Slider";
 import noResultIcon from "../../assets/icon-busqueda-sin-resultado.svg";
 import Header from "../../components/layout/Header/Header";
 import Search from "../../components/Search/Search";
-import { DUMMY_DATA } from "../../components/layout/Grid/dummy-data.js";
 
 import "./home.scss";
 import Fallback from "../../components/Fallback/Fallback";
 
 const Home = () => {
   const [gifos, setGifos] = useState([]);
+  const [selectedTerm, setSelectedTerm] = useState("");
+  const [, set] = useState();
 
+  // fetches the gifos
+  // passed to search component via props
   const getGifosHandler = useCallback(async (term) => {
     try {
-      setGifos([]);
       const res = await fetch(
         `https:/api.giphy.com/v1/gifs/search?api_key=tbWaCMKEXqzhVP6mzZcPyUQg4xDxk774&q=${term}`
       );
 
       const data = await res.json();
-      setGifos(data.data);
+
+      // Manipulating teh array of objects.
+      const transformedData = data.data.map((item) => {
+        const { title, username, id, images, url } = item;
+        const transformedItem = {
+          id: id,
+          url: url,
+          title: title,
+          username: username,
+          images: images,
+        };
+        return transformedItem;
+      });
+      // title
+      setSelectedTerm(term);
+      // saving the data in the gifos state
+      setGifos(transformedData);
     } catch (error) {
       console.log(error);
     }
   });
 
-  console.log(gifos);
+  const cleanSearchHandler = () => {
+    setSelectedTerm("");
+    setGifos([]);
+  };
 
   return (
     <>
       <section className="grid-section">
         <Header />
-        <Search onGetGifos={getGifosHandler} />
-        <h2 className="grid-section__heading">Pets</h2>
-        <Grid data={gifos} />
+        <Search
+          onGetGifos={getGifosHandler}
+          onCleanSearch={cleanSearchHandler}
+        />
+        <h2 className="grid-section__heading">{selectedTerm}</h2>
+        <Grid gifos={gifos} />
         <Fallback image={noResultIcon} text="Please try a different search." />
       </section>
 
